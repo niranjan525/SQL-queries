@@ -1,0 +1,15 @@
+select *
+from 
+(
+    select
+      c.number,
+      c.state,
+      row_number() over ( partition by c.state order by c.state nulls last ) rank
+    from 
+    --table_name1 st
+    --inner join 
+    table_name2 c
+    -- on c.id = st.table1
+      where c.state IN ('PPR','AC','PPS')  order by c.id desc
+)
+where rank <= 5;
